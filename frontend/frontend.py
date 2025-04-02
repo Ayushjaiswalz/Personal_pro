@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-BACKEND_URL = "https://personal-pro-atg8.onrender.com"
+BACKEND_URL = "https://personal-pro-atg8.onrender.com/upload"
 
 st.title("📤 File Upload System")
 
