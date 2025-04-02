@@ -7,6 +7,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from dotenv import load_dotenv
+import json
 
 # Load environment variables from .env file
 load_dotenv()
@@ -24,9 +25,10 @@ def get_db_connection():
     )
 
 # Google Drive API Setup using environment variables
-SERVICE_ACCOUNT_FILE = os.getenv("SERVICE_ACCOUNT_FILE")
+service_account_info = json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON"))
 SCOPES = ["https://www.googleapis.com/auth/drive.file"]
-creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+creds = service_account.Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
+
 drive_service = build("drive", "v3", credentials=creds)
 
 # Root Google Drive Folder ID (Where all month folders will be created)
