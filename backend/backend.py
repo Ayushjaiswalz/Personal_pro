@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, Form
 import os
 import psycopg2
+from psycopg2.extras import RealDictCursor
 from datetime import datetime
 from io import BytesIO
 from google.oauth2 import service_account
