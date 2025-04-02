@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from dotenv import load_dotenv
 import json
-
+from urllib.parse import urlparse
 # Load environment variables from .env file
 load_dotenv()
 
