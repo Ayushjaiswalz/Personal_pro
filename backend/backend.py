@@ -24,23 +24,31 @@ app = FastAPI()
 #         host=os.getenv("DB_HOST"),
 #         port=os.getenv("DB_PORT")
 #     )
+
 def get_db_connection():
-    # Parse DATABASE_URL
-    db_url = os.getenv("DATABASE_URL")
+    db_url = os.getenv("DATABASE_URL")  # Get the database URL from environment variables
+    
     if not db_url:
         raise ValueError("DATABASE_URL is not set in environment variables")
 
+    # Parse the database URL
     result = urlparse(db_url)
-    
+
+    # Extract database connection parameters
+    db_name = result.path.lstrip("/")  # Remove leading "/"
+    db_user = result.username
+    db_password = result.password
+    db_host = result.hostname
+    db_port = result.port
+
     return psycopg2.connect(
-        dbname=result.path[1:],  # Remove leading '/'
-        user=result.username,
-        password=result.password,
-        host=result.hostname,
-        port=result.port,
+        database=db_name,
+        user=db_user,
+        password=db_password,
+        host=db_host,
+        port=db_port,
         cursor_factory=RealDictCursor  # Returns results as dictionaries
     )
-
 # Google Drive API Setup using environment variables
 service_account_info = json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON"))
 SCOPES = ["https://www.googleapis.com/auth/drive.file"]
