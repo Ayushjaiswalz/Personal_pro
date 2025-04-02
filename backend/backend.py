@@ -15,13 +15,29 @@ load_dotenv()
 app = FastAPI()
 
 # Database Connection using environment variables
+# def get_db_connection():
+#     return psycopg2.connect(
+#         database=os.getenv("DB_NAME"),
+#         user=os.getenv("DB_USER"),
+#         password=os.getenv("DB_PASSWORD"),
+#         host=os.getenv("DB_HOST"),
+#         port=os.getenv("DB_PORT")
+#     )
 def get_db_connection():
+    # Parse DATABASE_URL
+    db_url = os.getenv("DATABASE_URL")
+    if not db_url:
+        raise ValueError("DATABASE_URL is not set in environment variables")
+
+    result = urlparse(db_url)
+    
     return psycopg2.connect(
-        database=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT")
+        dbname=result.path[1:],  # Remove leading '/'
+        user=result.username,
+        password=result.password,
+        host=result.hostname,
+        port=result.port,
+        cursor_factory=RealDictCursor  # Returns results as dictionaries
     )
 
 # Google Drive API Setup using environment variables
