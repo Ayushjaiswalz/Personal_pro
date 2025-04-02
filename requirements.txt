@@ -72,4 +72,3 @@ uvicorn==0.21.1
 validators==0.34.0
 watchdog==6.0.0
 zipp==3.21.0
-pytz
