@@ -31,7 +31,8 @@ def upload_file(file, custom_name):
     if file is None or not custom_name:
         return "❌ Please provide a file and a custom filename.", None
 
-    files = {"file": (file.name, file, file.type)}
+    # Read file content
+    files = {"file": (file.name, file.read())}  # Removed 'file.type'
     data = {"custom_name": custom_name}
 
     response = requests.post(BACKEND_URL, files=files, data=data)
@@ -44,8 +45,14 @@ def upload_file(file, custom_name):
 
 iface = gr.Interface(
     fn=upload_file,
-    inputs=[gr.File(label="Upload Image"), gr.Textbox(label="Custom Filename (without extension)")],
-    outputs=[gr.Markdown(), gr.Textbox(label="Google Drive URL")],
+    inputs=[
+        gr.File(label="Upload Image"), 
+        gr.Textbox(label="Custom Filename (without extension)")
+    ],
+    outputs=[
+        gr.Markdown(), 
+        gr.Textbox(label="Google Drive URL")
+    ],
     title="📤 File Upload System",
     description="Upload an image and get the Google Drive link."
 )
