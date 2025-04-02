@@ -51,4 +51,4 @@ iface = gr.Interface(
 )
 
 if __name__ == "__main__":
-    iface.launch(pwa=True)
+    iface.launch()
