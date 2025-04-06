@@ -1,0 +1,21 @@
+{
+    "name": "File Upload PWA",
+    "short_name": "UploadApp",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0e1117",
+    "theme_color": "#0e1117",
+    "icons": [
+      {
+        "src": "https://github.com/Ayushjaiswalz/Personal_pro/blob/master/pwa-wrapper/upload-file.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "https://github.com/Ayushjaiswalz/Personal_pro/blob/master/pwa-wrapper/upload-file.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
